@@ -7,30 +7,58 @@ using System.Threading.Tasks;
 
 namespace Exam
 {
-    internal class Program
-    {
-        static void Main(string[] args)
+        internal class Program
         {
-            int[] intArray ={1,2,3,4,5};
-
-            int sum = 0;
-            //Array.ForEach(intArray, x => sum += x);
-            //Console.WriteLine(sum);
-            int[] intArray1 = new int[6];
-            intArray1[1] = 1;
-            intArray1[4] = 4;
-            intArray1[2] = 2;
-            intArray1[5] = 5;
-            intArray1[3] = 3;
-
-            for (int i = 0; i < intArray.Length; i++)
+            static void Main(string[] args)
             {
-                Console.WriteLine("Element in index " + i + ": " + intArray[i]);
-            }
-            Console.WriteLine("Summa" + intArray[1] + intArray[4] + intArray[2]);
-            Console.ReadLine();
+                //Ввод исходных данных
+                Console.WriteLine("Введите размер исходного массива:");
+                int size;
+                if (Int32.TryParse(Console.ReadLine(), out int value))
+                {
+                    size = value;
+                }
+                else
+                {
+                    throw new ApplicationException("Ошибка! Вы ввели не число!");
+                }
+                int[] arr = new int[size];
+                Console.WriteLine("Введите массив положительных целых чисел:");
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    Console.Write("Введите значение: ");
+                    arr[i] = Int32.Parse(Console.ReadLine());
+                    Console.WriteLine();
+                }
+                Console.WriteLine("Ввод исходных данных завершен.");
 
-            Console.WriteLine(intArray[1]);
+                //Вычисление сумм всех массивов нечетных длин
+                int result = 0;
+                for (int l = 1; l <= arr.Length; l += 2)
+                {
+                    for (int k = 0; k <= arr.Length - l; k++)
+                    {
+                        Console.WriteLine("Массивы длиной " + l + "=>");
+                        for (int j = k; j < k + l; j++)
+                        {
+                            Console.Write(arr[j] + " ");
+                            result += arr[j];
+                        }
+                        Console.WriteLine();
+                    }
+                }
+
+                //Вывод результата
+                Console.WriteLine("Вывод исходного массива:");
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    Console.Write(arr[i]);
+                    Console.Write('\t');
+                }
+                Console.WriteLine("Сумма всех подмассивов нечетной длины равна " + result + '.');
+            }
         }
+    }
+}
     }
 }
